@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ReminderApplication</string>
+    <string name="main_center_content">기억하고싶은 일을 적어보세요.</string>
+</resources>
