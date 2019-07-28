@@ -15,7 +15,7 @@ class ReminderViewholder extends RecyclerView.ViewHolder {
     private TextView reminderContent;
     private ImageButton alramButton;
     private TextView reminderTime;
-    private boolean alertStatus = false;
+    private int alertStatus = 0;
 
     public ReminderViewholder(@NonNull View itemView) {
         super(itemView);
@@ -45,10 +45,10 @@ class ReminderViewholder extends RecyclerView.ViewHolder {
     //버튼을 클릭했을 때 현재 상태에 따라서 이미지 변경
     public void changeImageButton() {
         //TODO: db에 상태 저장하기
-        if (alertStatus) {
-            alertStatus = false;
+        if (alertStatus == 0) {
+            alertStatus = 1;
         } else {
-            alertStatus = true;
+            alertStatus = 0;
         }
     }
 }
