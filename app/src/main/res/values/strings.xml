@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ReminderApplication</string>
-    <string name="main_center_content">기억하고싶은 일을 적어보세요.</string>
+    <string name="main_center_content">기억하고싶은 것을\n적어보세요.</string>
+    <string name="splash_main_contenxt">모두의\n 리마인더</string>
 </resources>
