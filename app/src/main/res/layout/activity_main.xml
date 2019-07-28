@@ -18,6 +18,7 @@
         android:fontFamily="@font/yg_jalnan"
         android:text="@string/main_center_content"
         android:textColor="@color/colorPrimary"
+        android:gravity="center"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
