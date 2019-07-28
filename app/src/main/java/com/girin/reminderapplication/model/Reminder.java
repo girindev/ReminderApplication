@@ -5,8 +5,8 @@ import java.util.Date;
 public class Reminder {
     private String title;
     private String content;
-    private Date time;
-    private boolean alertCheck;
+    private String time;
+    private int alertCheck;
 
     public String getTitle() {
         return title;
@@ -24,19 +24,19 @@ public class Reminder {
         this.content = content;
     }
 
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
-    public boolean isAlertCheck() {
+    public int isAlertCheck() {
         return alertCheck;
     }
 
-    public void setAlertCheck(boolean alertCheck) {
+    public void setAlertCheck(int alertCheck) {
         this.alertCheck = alertCheck;
     }
 }
