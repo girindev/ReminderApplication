@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.girin.reminderapplication.R;
+import com.girin.reminderapplication.holder.ReminderViewholder;
 import com.girin.reminderapplication.model.Reminder;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderViewholder> {
     @NonNull
     @Override
     public ReminderViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.reminder_list_view, parent);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.reminder_list_view, parent, false);
         return new ReminderViewholder(view);
     }
 
