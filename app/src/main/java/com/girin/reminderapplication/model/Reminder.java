@@ -1,7 +1,5 @@
 package com.girin.reminderapplication.model;
 
-import java.util.Date;
-
 public class Reminder {
     private String title;
     private String content;
