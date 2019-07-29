@@ -1,4 +1,4 @@
-package com.girin.reminderapplication.adapter;
+package com.girin.reminderapplication.holder;
 
 import android.view.View;
 import android.widget.ImageButton;
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.girin.reminderapplication.R;
 import com.girin.reminderapplication.model.Reminder;
 
-class ReminderViewholder extends RecyclerView.ViewHolder {
+public class ReminderViewholder extends RecyclerView.ViewHolder {
     private TextView reminderTitle;
     private TextView reminderContent;
     private ImageButton alramButton;
