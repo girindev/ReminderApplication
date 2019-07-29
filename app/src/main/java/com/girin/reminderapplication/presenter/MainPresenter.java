@@ -20,4 +20,9 @@ public class MainPresenter {
         iMainView.setReminder(reminders);
     }
 
+    public void insertIntoDB(Reminder reminder) {
+        long result = iMainModel.insertReminderDataToDB(reminder);
+        iMainView.reminderInsertIntoDB(result);
+    }
+
 }

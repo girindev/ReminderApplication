@@ -2,6 +2,7 @@ package com.girin.reminderapplication.model;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.widget.Toast;
 
 import com.girin.reminderapplication.db.DataBases;
 import com.girin.reminderapplication.db.DbOpenHelper;
@@ -15,7 +16,20 @@ public class IMainModel {
 
 
     public IMainModel(IMainView iMainView) {
-        database = new DbOpenHelper((Context)iMainView).open();
+        database = new DbOpenHelper((Context) iMainView).open();
+    }
+
+    public long insertReminderDataToDB(Reminder reminder) {
+        database.open();
+        if (reminder != null) {
+            String title = reminder.getTitle();
+            String content = reminder.getContent();
+            String date = reminder.getTime();
+            int reminderCheck = reminder.isAlertCheck();
+            return this.database.insertColumn(title, content, date, reminderCheck);
+        }
+        database.close();
+        return -1;
     }
 
     public List<Reminder> getReminderFromDB() {
