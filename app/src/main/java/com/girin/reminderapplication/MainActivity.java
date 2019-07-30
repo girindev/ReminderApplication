@@ -44,6 +44,17 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 mainPresenter.insertIntoDB(reminder);
             }
         });
+
+        reminderAdapter.setSwipeChangeListener(new ReminderAdapter.OnSwipeChangeListener() {
+            @Override
+            public void onSwipeListener(Reminder reminder, int position) {
+                int result = mainPresenter.deleteReminder(reminder.get_id());
+                Toast.makeText(MainActivity.this, "delete reminder result : " + result, Toast.LENGTH_SHORT).show();
+                if (result > 0) {
+                    mainPresenter.getReminderFromModel();
+                }
+            }
+        });
     }
 
     private void initView() {
@@ -59,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
     @Override
     public void setReminder(List<Reminder> reminder) {
+        reminderAdapter.clear();
         reminderAdapter.addAll(reminder);
         if (reminderAdapter.getItemCount() > 0) {
             mainContent.setVisibility(View.GONE);
@@ -69,5 +81,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     @Override
     public void reminderInsertIntoDB(long result) {
         Toast.makeText(this, "" + result, Toast.LENGTH_SHORT).show();
+        if (result > 0) {
+            mainPresenter.getReminderFromModel();
+        }
     }
 }

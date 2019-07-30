@@ -25,4 +25,7 @@ public class MainPresenter {
         iMainView.reminderInsertIntoDB(result);
     }
 
+    public int deleteReminder(int _id) {
+        return iMainModel.deleteReminder(_id);
+    }
 }

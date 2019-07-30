@@ -8,13 +8,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.girin.reminderapplication.R;
-import com.girin.reminderapplication.holder.ReminderViewholder;
+import com.girin.reminderapplication.holder.ReminderViewHolder;
 import com.girin.reminderapplication.model.Reminder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReminderAdapter extends RecyclerView.Adapter<ReminderViewholder> {
+public class ReminderAdapter extends RecyclerView.Adapter<ReminderViewHolder> {
     List<Reminder> reminderList = new ArrayList<>();
 
     public void addAll(List<Reminder> reminders) {
@@ -22,16 +22,27 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderViewholder> {
         notifyDataSetChanged();
     }
 
+    public interface OnSwipeChangeListener {
+        void onSwipeListener(Reminder reminder, int position);
+    }
+
+    public OnSwipeChangeListener onSwipeChangeListener = null;
+
+    public void setSwipeChangeListener(OnSwipeChangeListener onSwipeChangeListener) {
+        this.onSwipeChangeListener = onSwipeChangeListener;
+    }
+
     @NonNull
     @Override
-    public ReminderViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ReminderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.reminder_list_view, parent, false);
-        return new ReminderViewholder(view);
+        return new ReminderViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ReminderViewholder holder, int position) {
-        holder.setReminder(reminderList.get(position));
+    public void onBindViewHolder(@NonNull ReminderViewHolder holder, int position) {
+        holder.setmReminder(reminderList.get(position));
+        holder.setOnSwipeChangeListsner(onSwipeChangeListener);
     }
 
     @Override

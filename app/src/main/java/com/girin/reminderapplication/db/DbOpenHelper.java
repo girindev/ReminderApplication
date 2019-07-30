@@ -43,9 +43,11 @@ public class DbOpenHelper {
     public void create() {
         mDBHelper.onCreate(mDB);
     }
+
     public void close() {
         mDB.close();
     }
+
     public long insertColumn(String title, String content, String date, int reminderCheck) {
         ContentValues values = new ContentValues();
         values.put(DataBases.CreateDB.TITLE, title);
@@ -54,7 +56,14 @@ public class DbOpenHelper {
         values.put(DataBases.CreateDB.ALRAM_CHECK, reminderCheck);
         return mDB.insert(DataBases.CreateDB._TABLENAME0, null, values);
     }
+
     public Cursor selectColumns() {
-        return mDB.query(DataBases.CreateDB._TABLENAME0, null, null, null, null,null, null);
+        return mDB.query(DataBases.CreateDB._TABLENAME0, null, null, null, null, null, null);
     }
+
+    public int deleteReminder(int id) {
+        String _id = String.valueOf(id);
+        return mDB.delete(DataBases.CreateDB._TABLENAME0, "_id=?", new String[]{_id});
+    }
+
 }

@@ -25,7 +25,7 @@ public class IMainModel {
             String title = reminder.getTitle();
             String content = reminder.getContent();
             String date = reminder.getTime();
-            int reminderCheck = reminder.isAlertCheck();
+            int reminderCheck = reminder.getAlertCheck();
             return this.database.insertColumn(title, content, date, reminderCheck);
         }
         database.close();
@@ -42,11 +42,19 @@ public class IMainModel {
             reminder.setContent(cursor.getString(cursor.getColumnIndex(DataBases.CreateDB.CONTENT)));
             reminder.setTime(cursor.getString(cursor.getColumnIndex(DataBases.CreateDB.DATE)));
             reminder.setAlertCheck(cursor.getInt(cursor.getColumnIndex(DataBases.CreateDB.ALRAM_CHECK)));
+            reminder.set_id(cursor.getInt(cursor.getColumnIndex(DataBases.CreateDB._ID)));
             reminders.add(reminder);
             cursor.moveToNext();
         }
         cursor.close();
         database.close();
         return reminders;
+    }
+    public int deleteReminder(int _id) {
+        database.open();
+        if (_id > 0) {
+            return this.database.deleteReminder(_id);
+        }
+        return -1;
     }
 }
