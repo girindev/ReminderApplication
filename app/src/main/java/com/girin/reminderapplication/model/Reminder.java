@@ -5,6 +5,7 @@ public class Reminder {
     private String content;
     private String time;
     private int alertCheck;
+    private int _id;
 
     public String getTitle() {
         return title;
@@ -30,11 +31,19 @@ public class Reminder {
         this.time = time;
     }
 
-    public int isAlertCheck() {
+    public void setAlertCheck(int alertCheck) {
+        this.alertCheck = alertCheck;
+    }
+
+    public int getAlertCheck() {
         return alertCheck;
     }
 
-    public void setAlertCheck(int alertCheck) {
-        this.alertCheck = alertCheck;
+    public int get_id() {
+        return _id;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
     }
 }
