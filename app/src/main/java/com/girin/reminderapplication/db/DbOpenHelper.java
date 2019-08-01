@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.girin.reminderapplication.model.Reminder;
+
 public class DbOpenHelper {
     private static final String DATABASE_NAME = "InnerDatabase(SQLite).db";
     private static final int DATABASE_VERSION = 1;
@@ -48,7 +50,7 @@ public class DbOpenHelper {
         mDB.close();
     }
 
-    public long insertColumn(String title, String content, String date, int reminderCheck) {
+    public long insertReminder(String title, String content, String date, int reminderCheck) {
         ContentValues values = new ContentValues();
         values.put(DataBases.CreateDB.TITLE, title);
         values.put(DataBases.CreateDB.CONTENT, content);
@@ -66,4 +68,14 @@ public class DbOpenHelper {
         return mDB.delete(DataBases.CreateDB._TABLENAME0, "_id=?", new String[]{_id});
     }
 
+    public int updateReminder(Reminder reminder) {
+        String _id = String.valueOf(reminder.get_id());
+        ContentValues values = new ContentValues();
+        values.put(DataBases.CreateDB.TITLE, reminder.getTitle());
+        values.put(DataBases.CreateDB.CONTENT, reminder.getContent());
+        values.put(DataBases.CreateDB.DATE, reminder.getTime());
+        values.put(DataBases.CreateDB.ALRAM_CHECK, reminder.getAlertCheck());
+
+        return mDB.update(DataBases.CreateDB._TABLENAME0, values, "_id=?", new String[]{_id});
+    }
 }
