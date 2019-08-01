@@ -32,6 +32,16 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderViewHolder> {
         this.onSwipeChangeListener = onSwipeChangeListener;
     }
 
+    public interface OnItemClickListener {
+        void OnItemClick(int position);
+    }
+
+    private OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
     @NonNull
     @Override
     public ReminderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,6 +53,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderViewHolder> {
     public void onBindViewHolder(@NonNull ReminderViewHolder holder, int position) {
         holder.setmReminder(reminderList.get(position));
         holder.setOnSwipeChangeListsner(onSwipeChangeListener);
+        holder.setOnItemClickListener(onItemClickListener);
     }
 
     @Override

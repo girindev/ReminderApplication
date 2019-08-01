@@ -17,18 +17,19 @@ import ru.rambler.libs.swipe_layout.SwipeLayout;
 public class ReminderViewHolder extends RecyclerView.ViewHolder {
     private TextView reminderTitle;
     private TextView reminderContent;
-    private ImageButton alramButton;
+    private ImageButton alarmButton;
     private TextView reminderTime;
     private SwipeLayout swipeLayout;
     private ReminderAdapter.OnSwipeChangeListener mOnSwipeChangeListsner;
     private Reminder mReminder;
+    private ReminderAdapter.OnItemClickListener onItemClickListener;
 
     public ReminderViewHolder(@NonNull final View itemView) {
         super(itemView);
         reminderTitle = itemView.findViewById(R.id.reminder_title);
         reminderContent = itemView.findViewById(R.id.reminder_content);
         reminderTime = itemView.findViewById(R.id.reminder_time);
-        alramButton = itemView.findViewById(R.id.alram_ibutton);
+        alarmButton = itemView.findViewById(R.id.alram_ibutton);
         swipeLayout = itemView.findViewById(R.id.swipe_layout);
 
         itemView.setOnClickListener(new View.OnClickListener() {
@@ -36,7 +37,7 @@ public class ReminderViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View view) {
                 int pos = getAdapterPosition();
                 if (pos != RecyclerView.NO_POSITION) {
-                    Toast.makeText(itemView.getContext(), "ReminderViewHolder item on click : " + mReminder.get_id(), Toast.LENGTH_SHORT).show();
+                    onItemClickListener.OnItemClick(pos);
                 }
             }
         });
@@ -67,11 +68,10 @@ public class ReminderViewHolder extends RecyclerView.ViewHolder {
         });
 
 
-        //TODO alamButton onClick 구현
-        alramButton.setOnClickListener(new View.OnClickListener() {
+        alarmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                alarmButton.setSelected(!alarmButton.isSelected());
             }
         });
     }
@@ -86,8 +86,12 @@ public class ReminderViewHolder extends RecyclerView.ViewHolder {
                 reminderContent.setText(mReminder.getContent());
             }
             if (mReminder.getTitle() != null) {
-                reminderTime.setText(mReminder.getTitle());
+                reminderTime.setText(mReminder.getTime());
             }
+            alarmButton.setSelected(true);
+            if (mReminder.getAlertCheck() == 0)
+                alarmButton.setSelected(false);
+
         }
     }
 
@@ -103,5 +107,9 @@ public class ReminderViewHolder extends RecyclerView.ViewHolder {
 
     public void setOnSwipeChangeListsner(ReminderAdapter.OnSwipeChangeListener onSwipeChangeListsner) {
         this.mOnSwipeChangeListsner = onSwipeChangeListsner;
+    }
+
+    public void setOnItemClickListener(ReminderAdapter.OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 }
