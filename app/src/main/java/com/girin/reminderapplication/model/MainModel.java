@@ -2,7 +2,6 @@ package com.girin.reminderapplication.model;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.widget.Toast;
 
 import com.girin.reminderapplication.db.DataBases;
 import com.girin.reminderapplication.db.DbOpenHelper;
@@ -11,28 +10,15 @@ import com.girin.reminderapplication.view.IMainView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IMainModel {
+public class MainModel {
     private DbOpenHelper database;
 
-
-    public IMainModel(IMainView iMainView) {
+    public MainModel(IMainView iMainView) {
         database = new DbOpenHelper((Context) iMainView).open();
     }
 
-    public long insertReminderDataToDB(Reminder reminder) {
-        database.open();
-        if (reminder != null) {
-            String title = reminder.getTitle();
-            String content = reminder.getContent();
-            String date = reminder.getTime();
-            int reminderCheck = reminder.getAlertCheck();
-            return this.database.insertColumn(title, content, date, reminderCheck);
-        }
-        database.close();
-        return -1;
-    }
-
     public List<Reminder> getReminderFromDB() {
+        database.open();
         List<Reminder> reminders = new ArrayList<>();
         Cursor cursor = this.database.selectColumns();
         cursor.moveToFirst();
@@ -50,11 +36,21 @@ public class IMainModel {
         database.close();
         return reminders;
     }
+
     public int deleteReminder(int _id) {
         database.open();
-        if (_id > 0) {
-            return this.database.deleteReminder(_id);
+        int result = database.deleteReminder(_id);
+        database.close();
+        return result;
+    }
+
+    public int updateReminder(Reminder reminder) {
+        database.open();
+        if (reminder != null) {
+            database.close();
+            return this.database.updateReminder(reminder);
         }
+        database.close();
         return -1;
     }
 }

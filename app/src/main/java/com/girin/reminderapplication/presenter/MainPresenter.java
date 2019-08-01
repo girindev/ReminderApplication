@@ -1,6 +1,6 @@
 package com.girin.reminderapplication.presenter;
 
-import com.girin.reminderapplication.model.IMainModel;
+import com.girin.reminderapplication.model.MainModel;
 import com.girin.reminderapplication.model.Reminder;
 import com.girin.reminderapplication.view.IMainView;
 
@@ -8,24 +8,19 @@ import java.util.List;
 
 public class MainPresenter {
     private IMainView iMainView;
-    private IMainModel iMainModel;
+    private MainModel mainModel;
 
     public MainPresenter(IMainView iMainView) {
         this.iMainView = iMainView;
-        iMainModel = new IMainModel(iMainView);
+        mainModel = new MainModel(iMainView);
     }
 
     public void getReminderFromModel() {
-        List<Reminder> reminders = iMainModel.getReminderFromDB();
+        List<Reminder> reminders = mainModel.getReminderFromDB();
         iMainView.setReminder(reminders);
     }
 
-    public void insertIntoDB(Reminder reminder) {
-        long result = iMainModel.insertReminderDataToDB(reminder);
-        iMainView.reminderInsertIntoDB(result);
-    }
-
     public int deleteReminder(int _id) {
-        return iMainModel.deleteReminder(_id);
+        return mainModel.deleteReminder(_id);
     }
 }
