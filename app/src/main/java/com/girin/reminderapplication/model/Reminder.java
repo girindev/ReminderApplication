@@ -1,11 +1,37 @@
 package com.girin.reminderapplication.model;
 
-public class Reminder {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Reminder implements Parcelable {
     private String title;
     private String content;
     private String time;
     private int alertCheck;
     private int _id;
+
+    public Reminder() {
+    }
+
+    protected Reminder(Parcel in) {
+        title = in.readString();
+        content = in.readString();
+        time = in.readString();
+        alertCheck = in.readInt();
+        _id = in.readInt();
+    }
+
+    public static final Creator<Reminder> CREATOR = new Creator<Reminder>() {
+        @Override
+        public Reminder createFromParcel(Parcel in) {
+            return new Reminder(in);
+        }
+
+        @Override
+        public Reminder[] newArray(int size) {
+            return new Reminder[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -45,5 +71,30 @@ public class Reminder {
 
     public void set_id(int _id) {
         this._id = _id;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(title);
+        parcel.writeString(content);
+        parcel.writeString(time);
+        parcel.writeInt(alertCheck);
+        parcel.writeInt(_id);
+    }
+
+    @Override
+    public String toString() {
+        return "Reminder{" +
+                "title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", time='" + time + '\'' +
+                ", alertCheck=" + alertCheck +
+                ", _id=" + _id +
+                '}';
     }
 }
