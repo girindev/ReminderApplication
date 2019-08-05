@@ -43,14 +43,4 @@ public class MainModel {
         database.close();
         return result;
     }
-
-    public int updateReminder(Reminder reminder) {
-        database.open();
-        if (reminder != null) {
-            database.close();
-            return this.database.updateReminder(reminder);
-        }
-        database.close();
-        return -1;
-    }
 }
