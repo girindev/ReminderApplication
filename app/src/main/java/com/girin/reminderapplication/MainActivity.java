@@ -61,8 +61,9 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         reminderAdapter.setOnItemClickListener(new ReminderAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(int position) {
+                Reminder reminder = reminderAdapter.getItem(position);
                 Intent intent = new Intent(MainActivity.this, UpdateReminderActivity.class);
-                intent.putExtra("position", position);
+                intent.putExtra("Reminder", reminder);
                 startActivityForResult(intent, UPDATE_REMINDER_REQUEST_CODE);
             }
         });
