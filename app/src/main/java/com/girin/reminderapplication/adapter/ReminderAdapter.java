@@ -61,6 +61,10 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderViewHolder> {
         return reminderList.size();
     }
 
+    public Reminder getItem(int position) {
+        return reminderList.get(position);
+    }
+
     public void clear() {
         reminderList.clear();
         notifyDataSetChanged();
