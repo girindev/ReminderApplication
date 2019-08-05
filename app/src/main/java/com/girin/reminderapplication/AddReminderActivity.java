@@ -26,10 +26,11 @@ public class AddReminderActivity extends AppCompatActivity implements IAddRemind
     private EditText reminderTitle, reminderContent;
     private ImageButton alarmCheck;
     private TextView tvPickDate;
-    private DatePickerDialog datePickerDialog;
     private Button btnAddReminder;
+    private DatePickerDialog datePickerDialog;
     private int year, month, date, hour, minute;
     private TimePickerDialog timePickerDialog;
+
     private AddReminderPresenter addReminderPresenter;
 
     @Override
@@ -122,7 +123,7 @@ public class AddReminderActivity extends AppCompatActivity implements IAddRemind
     }
 
     @Override
-    public void addreminderToDb(long result) {
+    public void addReminderToDb(long result) {
         Intent intent = new Intent();
         //Intent return success
         intent.putExtra("result", result);
