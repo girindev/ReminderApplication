@@ -16,6 +16,6 @@ public class AddReminderPresenter {
 
     public void addReminderToDb(Reminder reminder) {
         if (reminder != null)
-            iAddReminderView.addreminderToDb(addReminderModel.insertIntoReminder(reminder));
+            iAddReminderView.addReminderToDb(addReminderModel.insertIntoReminder(reminder));
     }
 }

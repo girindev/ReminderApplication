@@ -1,5 +1,5 @@
 package com.girin.reminderapplication.view;
 
 public interface IAddReminderView {
-    public void addreminderToDb(long result);
+    public void addReminderToDb(long result);
 }
