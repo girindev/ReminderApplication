@@ -43,4 +43,11 @@ public class MainModel {
         database.close();
         return result;
     }
+
+    public int updateAlarmCheck(int _id, int check) {
+        database.open();
+        int result = database.updateAlarmCheck(_id, check);
+        database.close();
+        return result;
+    }
 }

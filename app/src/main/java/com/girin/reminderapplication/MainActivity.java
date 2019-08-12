@@ -1,5 +1,6 @@
 package com.girin.reminderapplication;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,33 +41,36 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         mainPresenter.getReminderFromModel();
 
         /**Call to Add reminder Activity*/
-        reminderAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddReminderActivity.class);
-                startActivityForResult(intent, ADD_REMINDER_REQUEST_CODE);
-            }
+        reminderAdd.setOnClickListener((View view) -> {
+            Intent intent = new Intent(MainActivity.this, AddReminderActivity.class);
+            startActivityForResult(intent, ADD_REMINDER_REQUEST_CODE);
         });
-        reminderAdapter.setSwipeChangeListener(new ReminderAdapter.OnSwipeChangeListener() {
-            @Override
-            public void onSwipeListener(Reminder reminder, int position) {
-                int result = mainPresenter.deleteReminder(reminder.get_id());
-                Toast.makeText(MainActivity.this, "delete reminder result : " + result, Toast.LENGTH_SHORT).show();
-                if (result > 0) {
-                    mainPresenter.getReminderFromModel();
-                }
+        reminderAdapter.setSwipeChangeListener((Reminder reminder, int position) -> {
+            int result = mainPresenter.deleteReminder(reminder.get_id());
+            Toast.makeText(MainActivity.this, "delete reminder result : " + result, Toast.LENGTH_SHORT).show();
+            if (result > 0) {
+                mainPresenter.getReminderFromModel();
             }
         });
 
-        reminderAdapter.setOnItemClickListener(new ReminderAdapter.OnItemClickListener() {
-            @Override
-            public void OnItemClick(int position) {
-                Reminder reminder = reminderAdapter.getItem(position);
-                Intent intent = new Intent(MainActivity.this, UpdateReminderActivity.class);
-                intent.putExtra("Reminder", reminder);
-                startActivityForResult(intent, UPDATE_REMINDER_REQUEST_CODE);
-            }
+        reminderAdapter.setOnItemClickListener((int position) -> {
+            Reminder reminder = reminderAdapter.getItem(position);
+            Intent intent = new Intent(MainActivity.this, UpdateReminderActivity.class);
+            intent.putExtra("Reminder", reminder);
+            startActivityForResult(intent, UPDATE_REMINDER_REQUEST_CODE);
         });
+
+        reminderAdapter.setOnAlarmCheckClickListener((boolean isState, int position) -> {
+            int isCheck = 1;
+            if (isState == true) {
+                isCheck = 0;
+            }
+            //progress 보여주고
+            Reminder reminder = reminderAdapter.getItem(position);
+            mainPresenter.updateAlarmCheck(reminder.get_id(), isCheck);
+            //progress 닫고
+        });
+
     }
 
     private void initView() {
@@ -89,6 +93,12 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         } else {
             mainContent.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void updateAlarmCheck(int result) {
+        if (result > 0)
+            mainPresenter.getReminderFromModel();
     }
 
 
@@ -116,6 +126,5 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 }
             }
         }
-
     }
 }

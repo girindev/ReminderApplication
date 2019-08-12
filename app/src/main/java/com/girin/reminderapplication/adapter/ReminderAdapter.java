@@ -22,6 +22,16 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderViewHolder> {
         notifyDataSetChanged();
     }
 
+    public interface OnAlarmCheckClickListener {
+        void onAlarmCheckClickListener(boolean isState, int position);
+    }
+
+    private OnAlarmCheckClickListener onAlarmCheckClickListener;
+
+    public void setOnAlarmCheckClickListener(OnAlarmCheckClickListener onAlarmCheckClickListener) {
+        this.onAlarmCheckClickListener = onAlarmCheckClickListener;
+    }
+
     public interface OnSwipeChangeListener {
         void onSwipeListener(Reminder reminder, int position);
     }
@@ -54,6 +64,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderViewHolder> {
         holder.setmReminder(reminderList.get(position));
         holder.setOnSwipeChangeListsner(onSwipeChangeListener);
         holder.setOnItemClickListener(onItemClickListener);
+        holder.setOnAlarmCheckClickListener(onAlarmCheckClickListener);
     }
 
     @Override

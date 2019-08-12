@@ -23,4 +23,9 @@ public class MainPresenter {
     public int deleteReminder(int _id) {
         return mainModel.deleteReminder(_id);
     }
+
+    public void updateAlarmCheck(int _id, int check) {
+        int result = mainModel.updateAlarmCheck(_id, check);
+        iMainView.updateAlarmCheck(result);
+    }
 }

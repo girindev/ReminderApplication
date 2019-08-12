@@ -3,7 +3,6 @@ package com.girin.reminderapplication.holder;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +22,7 @@ public class ReminderViewHolder extends RecyclerView.ViewHolder {
     private ReminderAdapter.OnSwipeChangeListener mOnSwipeChangeListsner;
     private Reminder mReminder;
     private ReminderAdapter.OnItemClickListener onItemClickListener;
+    private ReminderAdapter.OnAlarmCheckClickListener onAlarmCheckClickListener;
 
     public ReminderViewHolder(@NonNull final View itemView) {
         super(itemView);
@@ -32,13 +32,10 @@ public class ReminderViewHolder extends RecyclerView.ViewHolder {
         alarmButton = itemView.findViewById(R.id.alram_ibutton);
         swipeLayout = itemView.findViewById(R.id.swipe_layout);
 
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int pos = getAdapterPosition();
-                if (pos != RecyclerView.NO_POSITION) {
-                    onItemClickListener.OnItemClick(pos);
-                }
+        itemView.setOnClickListener((View view) -> {
+            int pos = getAdapterPosition();
+            if (pos != RecyclerView.NO_POSITION) {
+                onItemClickListener.OnItemClick(pos);
             }
         });
 
@@ -68,11 +65,8 @@ public class ReminderViewHolder extends RecyclerView.ViewHolder {
         });
 
 
-        alarmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alarmButton.setSelected(!alarmButton.isSelected());
-            }
+        alarmButton.setOnClickListener((View view) -> {
+            onAlarmCheckClickListener.onAlarmCheckClickListener(alarmButton.isSelected(), getAdapterPosition());
         });
     }
 
@@ -95,21 +89,15 @@ public class ReminderViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    //버튼을 클릭했을 때 현재 상태에 따라서 이미지 변경
-    public void changeImageButton() {
-        //TODO: db에 상태 저장하기
-        if (mReminder.getAlertCheck() == 0) {
-            mReminder.setAlertCheck(1);
-        } else {
-            mReminder.setAlertCheck(0);
-        }
-    }
-
     public void setOnSwipeChangeListsner(ReminderAdapter.OnSwipeChangeListener onSwipeChangeListsner) {
         this.mOnSwipeChangeListsner = onSwipeChangeListsner;
     }
 
     public void setOnItemClickListener(ReminderAdapter.OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+    }
+
+    public void setOnAlarmCheckClickListener(ReminderAdapter.OnAlarmCheckClickListener onAlarmCheckClickListener) {
+        this.onAlarmCheckClickListener = onAlarmCheckClickListener;
     }
 }

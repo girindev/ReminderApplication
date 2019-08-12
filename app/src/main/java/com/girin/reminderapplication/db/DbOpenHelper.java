@@ -78,4 +78,15 @@ public class DbOpenHelper {
 
         return mDB.update(DataBases.CreateDB._TABLENAME0, values, "_id=?", new String[]{_id});
     }
+
+    public int updateAlarmCheck(int _id, int check) {
+        // where절에 들어갈 _id를 String으로 변환
+        String id = String.valueOf(_id);
+        // value를 만든다
+        ContentValues values = new ContentValues();
+        values.put(DataBases.CreateDB.ALRAM_CHECK, check);
+        // update를 진행한다
+        // 결과를 반환한다.
+        return mDB.update(DataBases.CreateDB._TABLENAME0, values, "_id=?", new String[]{id});
+    }
 }

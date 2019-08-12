@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IMainView {
     void setReminder(List<Reminder> reminder);
+    void updateAlarmCheck(int result);
 }
