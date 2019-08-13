@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ru.rambler.libs.swipe_layout.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swipe_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -27,7 +26,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/yg_jalnan"
-                    android:text="창완이 이어폰 챙기기"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp" />
 
@@ -37,7 +35,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/yg_jalnan"
-                    android:text="집에 있는"
                     android:textSize="15sp" />
 
                 <TextView
@@ -46,9 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/yg_jalnan"
-                    android:text="2019.07.26 17시"
                     android:textSize="15sp" />
-
             </LinearLayout>
 
             <ImageButton
@@ -70,8 +65,18 @@
             android:background="#daf1f9" />
     </LinearLayout>
 
-    <!--RIGHT-->
     <LinearLayout
+        android:id="@+id/reminder_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/reminder_background"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+
+    <!--RIGHT-->
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/right_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -96,6 +101,36 @@
             android:layout_gravity="center_vertical"
             android:fontFamily="@font/yg_jalnan"
             android:text="일정을 삭제합니다."
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/left_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#59d4e8"
+        android:orientation="horizontal"
+        app:bring_to_clamp="200dp"
+        app:clamp="parent"
+        app:gravity="left"
+        app:sticky="170dp">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/garbage" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/yg_jalnan"
+            android:text="일정을 수정합니다."
             android:textColor="@color/white"
             android:textSize="18sp" />
     </LinearLayout>
