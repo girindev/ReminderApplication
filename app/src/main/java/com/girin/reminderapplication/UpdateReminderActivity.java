@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.girin.reminderapplication.model.Reminder;
 import com.girin.reminderapplication.presenter.UpdateReminderPresenter;
+import com.girin.reminderapplication.util.Util;
 import com.girin.reminderapplication.view.IUpdateReminderView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -98,8 +99,11 @@ public class UpdateReminderActivity extends AppCompatActivity implements IUpdate
                         reminder.setContent(reminderContent.getText().toString());
                     reminder.setTime(reminderDate.getText().toString());
                     reminder.setAlertCheck(0);
-                    if (reminderCheck.isSelected())
+                    if (reminderCheck.isSelected()) {
                         reminder.setAlertCheck(1);
+                        Util.addAlarm(reminder.get_id(),reminder.getTime(), UpdateReminderActivity.this);
+                    }
+                    reminder.setMilli_second(Util.stringToDate(reminder.getTime()).getTime());
                     updateReminderPresenter.reminderUpdate(reminder);
                 } else
                     Snackbar.make(findViewById(R.id.update_reminder_layout), getResources().getString(R.string.add_reminder_error), 2000).show();
