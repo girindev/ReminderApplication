@@ -9,6 +9,7 @@ public class Reminder implements Parcelable {
     private String time;
     private int alertCheck;
     private int _id;
+    private long milli_second;
 
     public Reminder() {
     }
@@ -19,6 +20,7 @@ public class Reminder implements Parcelable {
         time = in.readString();
         alertCheck = in.readInt();
         _id = in.readInt();
+        milli_second = in.readInt();
     }
 
     public static final Creator<Reminder> CREATOR = new Creator<Reminder>() {
@@ -85,16 +87,14 @@ public class Reminder implements Parcelable {
         parcel.writeString(time);
         parcel.writeInt(alertCheck);
         parcel.writeInt(_id);
+        parcel.writeLong(milli_second);
     }
 
-    @Override
-    public String toString() {
-        return "Reminder{" +
-                "title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", time='" + time + '\'' +
-                ", alertCheck=" + alertCheck +
-                ", _id=" + _id +
-                '}';
+    public long getMilli_second() {
+        return milli_second;
+    }
+
+    public void setMilli_second(long milli_second) {
+        this.milli_second = milli_second;
     }
 }
