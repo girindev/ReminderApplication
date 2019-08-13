@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.girin.reminderapplication.R;
 import com.girin.reminderapplication.holder.ReminderViewHolder;
+import com.girin.reminderapplication.listener.OnAlarmChangeListener;
+import com.girin.reminderapplication.listener.OnMoveToLeftSwipeListener;
+import com.girin.reminderapplication.listener.OnMoveToRightSwipeListener;
 import com.girin.reminderapplication.model.Reminder;
 
 import java.util.ArrayList;
@@ -22,34 +25,23 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderViewHolder> {
         notifyDataSetChanged();
     }
 
-    public interface OnAlarmCheckClickListener {
-        void onAlarmCheckClickListener(boolean isState, int position);
+    private OnAlarmChangeListener onAlarmChangeListener;
+
+    public void setOnAlarmChangeListener(OnAlarmChangeListener onAlarmChangeListener) {
+        this.onAlarmChangeListener = onAlarmChangeListener;
     }
 
-    private OnAlarmCheckClickListener onAlarmCheckClickListener;
+    public OnMoveToLeftSwipeListener onMoveToLeftSwipeListener = null;
 
-    public void setOnAlarmCheckClickListener(OnAlarmCheckClickListener onAlarmCheckClickListener) {
-        this.onAlarmCheckClickListener = onAlarmCheckClickListener;
+    public void setSwipeChangeListener(OnMoveToLeftSwipeListener onMoveToLeftSwipeListener) {
+        this.onMoveToLeftSwipeListener = onMoveToLeftSwipeListener;
     }
 
-    public interface OnSwipeChangeListener {
-        void onSwipeListener(Reminder reminder, int position);
-    }
 
-    public OnSwipeChangeListener onSwipeChangeListener = null;
+    private OnMoveToRightSwipeListener onMoveToRightSwipeListener;
 
-    public void setSwipeChangeListener(OnSwipeChangeListener onSwipeChangeListener) {
-        this.onSwipeChangeListener = onSwipeChangeListener;
-    }
-
-    public interface OnItemClickListener {
-        void OnItemClick(int position);
-    }
-
-    private OnItemClickListener onItemClickListener;
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
+    public void setOnMoveToRightSwipeListener(OnMoveToRightSwipeListener onMoveToRightSwipeListener) {
+        this.onMoveToRightSwipeListener = onMoveToRightSwipeListener;
     }
 
     @NonNull
@@ -61,10 +53,10 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ReminderViewHolder holder, int position) {
-        holder.setmReminder(reminderList.get(position));
-        holder.setOnSwipeChangeListsner(onSwipeChangeListener);
-        holder.setOnItemClickListener(onItemClickListener);
-        holder.setOnAlarmCheckClickListener(onAlarmCheckClickListener);
+        holder.setReminder(reminderList.get(position));
+        holder.setAlarmChangeListsner(onAlarmChangeListener);
+        holder.setOnMoveToRightSwipeListener(onMoveToRightSwipeListener);
+        holder.setOnMoveToLeftSwipeListener(onMoveToLeftSwipeListener);
     }
 
     @Override
