@@ -16,10 +16,7 @@ public class AddReminderModel {
 
     public long insertIntoReminder(Reminder reminder) {
         database.open();
-        long result = database.insertReminder(reminder.getTitle()
-                , reminder.getContent()
-                , reminder.getTime()
-                , reminder.getAlertCheck());
+        long result = database.insertReminder(reminder);
         database.close();
         return result;
     }
