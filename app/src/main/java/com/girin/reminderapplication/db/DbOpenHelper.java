@@ -45,22 +45,33 @@ public class DbOpenHelper {
     public void create() {
         mDBHelper.onCreate(mDB);
     }
+    public void deleteTable() {
+        mDB.execSQL("DROP TABLE IF EXISTS " + DataBases.CreateDB._TABLENAME0);
+    }
 
     public void close() {
         mDB.close();
     }
 
-    public long insertReminder(String title, String content, String date, int reminderCheck) {
+    public long insertReminder(Reminder reminder) {
         ContentValues values = new ContentValues();
-        values.put(DataBases.CreateDB.TITLE, title);
-        values.put(DataBases.CreateDB.CONTENT, content);
-        values.put(DataBases.CreateDB.DATE, date);
-        values.put(DataBases.CreateDB.ALRAM_CHECK, reminderCheck);
+        values.put(DataBases.CreateDB.TITLE, reminder.getTitle());
+        values.put(DataBases.CreateDB.CONTENT, reminder.getContent());
+        values.put(DataBases.CreateDB.DATE, reminder.getTime());
+        values.put(DataBases.CreateDB.ALRAM_CHECK, reminder.getAlertCheck());
+        values.put(DataBases.CreateDB.MIllI_SECOND, reminder.getMilli_second());
         return mDB.insert(DataBases.CreateDB._TABLENAME0, null, values);
     }
 
     public Cursor selectColumns() {
-        return mDB.query(DataBases.CreateDB._TABLENAME0, null, null, null, null, null, null);
+        return mDB.rawQuery("SELECT * FROM " + DataBases.CreateDB._TABLENAME0 + " ORDER BY milli_second DESC",null);
+    }
+
+    public Cursor selectColumn(int id) {
+        return mDB.rawQuery("SELECT * FROM " + DataBases.CreateDB._TABLENAME0 + " WHERE _id= " + id + ";", null);
+    }
+    public Cursor selectLastColumn() {
+        return mDB.rawQuery("SELECT * FROM " + DataBases.CreateDB._TABLENAME0 + " ORDER BY _id DESC LIMIT 1;", null);
     }
 
     public int deleteReminder(int id) {
@@ -75,7 +86,7 @@ public class DbOpenHelper {
         values.put(DataBases.CreateDB.CONTENT, reminder.getContent());
         values.put(DataBases.CreateDB.DATE, reminder.getTime());
         values.put(DataBases.CreateDB.ALRAM_CHECK, reminder.getAlertCheck());
-
+        values.put(DataBases.CreateDB.MIllI_SECOND, reminder.getMilli_second());
         return mDB.update(DataBases.CreateDB._TABLENAME0, values, "_id=?", new String[]{_id});
     }
 
